@@ -1,0 +1,21 @@
+---
+- name: Install Postgre
+  apt: 
+    name: postgresql 
+    state: latest
+  notify: restart postgresql
+
+- name: Create a new database
+  become: true
+  become_user: postgres
+  postgresql_db:
+    name: test
+  
+- name: Connect to database, create user, and grant rights
+  become: true
+  become_user: postgres
+  community.general.postgresql_user:
+    db: test
+    name: postgre
+    password: md5f4dcc3b5aa765d61d8327deb882cf99
+    priv: "ALL"

@@ -1,0 +1,19 @@
+---
+- name: Install nginx
+  apt: 
+    name: nginx 
+    state: latest
+    update_cache: yes
+
+- name: Copy nginx configuration
+  template: 
+    src: default.conf 
+    dest: /etc/nginx/sites-available/default.conf
+
+- name: Create symlink
+  file:
+    src: /etc/nginx/sites-available/default.conf
+    dest: /etc/nginx/sites-enabled/default
+    state: link
+  notify: 
+    - restart nginx

@@ -1,0 +1,32 @@
+---
+- name: Install python, pip and dependencies for postgre
+  apt:
+    pkg:
+    - python3
+    - python3-pip
+    - python3-setuptools
+    - python3-venv
+    - python3-psycopg2
+    - libpq-dev
+    
+- name: Install flask
+  pip:
+    name:
+    - flask
+    
+- name: Create target directory
+  file:
+    path: /www/data
+    state: directory
+
+- name: Copy app files
+  template: 
+    src: site.py
+    dest: /www/data
+    
+- name: Copy systemd service file to server
+  template:
+    src: site.service
+    dest: /etc/systemd/system
+  notify:
+    - Start site

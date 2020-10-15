@@ -1,0 +1,6 @@
+---
+- name: Start site
+  systemd:
+    name: site
+    state: started
+    enabled: yes

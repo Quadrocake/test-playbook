@@ -1,0 +1,9 @@
+---
+- name: Install Nginx, PostgreSQL, and Python app
+  hosts: ubuntu
+  remote_user: root
+  
+  roles:
+    - nginx
+    - app
+    - postgre
